@@ -4,15 +4,13 @@ export const styles = StyleSheet.create({
     input: {
         width: '100%',
         height: 52,
-        backgroundColor: '#fefefe',
-        borderRadius: 8,
-        borderColor: '#009B3A',
-        borderWidth: 3,
+        backgroundColor: '#F5F7FA',
+        borderRadius: 12, 
+        borderColor: '#3B4CCA', 
+        borderWidth: 2,
         justifyContent: 'center',
-        paddingHorizontal: 16,},
-    inputText: {
-        color: '#bbb8b8',
-        fontSize: 16,
-        fontWeight: 'bold',
+        paddingHorizontal: 16,
+        color: '#333', 
+        marginBottom: 10, 
     }
-}); 
+});

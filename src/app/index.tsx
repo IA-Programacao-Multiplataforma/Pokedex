@@ -1,9 +1,9 @@
-import { View, Text, StyleSheet, Alert } from 'react-native';
+import { View, Text, StyleSheet, Alert, Image, KeyboardAvoidingView, Platform } from 'react-native';
 import { useState } from 'react';
 import { useRouter } from 'expo-router'; 
-import Button from '../componets/button';
+import Button from '../componets/button'; 
 import Input from '../componets/input';
-import Card from '../componets/card';
+import { styles } from './style';
 
 export default function Index() {
     const [email, setEmail] = useState('');
@@ -12,59 +12,52 @@ export default function Index() {
     const router = useRouter(); 
 
     function handleLogin() {
-        if (email === 'neyma' && senha === 'vaiBrasil') {
-            router.push('/dash'); 
+        if (email.toLowerCase() === 'ash' && senha === 'pikachu') {
+            router.push('/pokedex'); 
         } else {
-            Alert.alert('Falta!', 'Faltou ousadia e alegria. Usuário ou senha incorretos.');
+            Alert.alert('Ataque Falhou!', 'A Equipe Rocket sabotou seu acesso. Treinador ou senha incorretos.');
         }
     }
 
     return (
-        <View style={styles.container}>
-            <Card>
-                <Text style={styles.title}>Bem Vindo</Text>
+        <KeyboardAvoidingView 
+            style={{ flex: 1 }} 
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        >
+            <View style={styles.container}>
+                
+                <View style={styles.topHalf} />
+                <View style={styles.middleBand} />
+                <View style={styles.bottomHalf} />
+                {/* ---------------------------------- */}
 
-                <Text style={styles.label}>Email</Text>
-                <Input 
-                    title="Digite seu email" 
-                    value={email} 
-                    onChangeText={setEmail} 
-                />
-                
-                <Text style={styles.label}>Senha</Text>
-                <Input 
-                    title="Digite sua senha" 
-                    secureTextEntry 
-                    value={senha}
-                    onChangeText={setSenha}
-                />
-                
-                <Button title="Login" onPress={handleLogin} />
-            </Card>
-        </View>
+                <View style={styles.loginCard}>
+                    <View style={styles.headerContainer}>
+                        <Image 
+                            source={{ uri: 'https://img.icons8.com/color/96/pokeball-2.png' }} 
+                            style={styles.pokeballIcon} 
+                        />
+                        <Text style={styles.title}>Pokédex</Text>
+                    </View>
+
+                    <Text style={styles.label}>Treinador</Text>
+                    <Input 
+                        title="Digite seu nome" 
+                        value={email} 
+                        onChangeText={setEmail} 
+                    />
+                    
+                    <Text style={styles.label}>Senha Secreta</Text>
+                    <Input 
+                        title="Digite sua senha" 
+                        secureTextEntry 
+                        value={senha}
+                        onChangeText={setSenha}
+                    />
+                    
+                    <Button title="Entrar" onPress={handleLogin} />
+                </View>
+            </View>
+        </KeyboardAvoidingView>
     )
 }
-
-const styles = StyleSheet.create({
-    container: {
-        backgroundColor: '#FDE100',
-        flex: 1,
-        padding: 32,
-        justifyContent: 'center',
-    },
-    label: {
-        color: '#009B3A',
-        fontSize: 16,
-        fontWeight: 'bold',
-        marginLeft: 4,
-    },
-    title: {
-        color: '#002776', 
-        fontSize: 28,
-        fontWeight: '900',
-        fontStyle: 'italic',
-        textAlign: 'center',
-        marginBottom: 8,
-        textTransform: 'uppercase',
-    }
-});
