@@ -1,19 +1,23 @@
 import { View, Text, StyleSheet, Alert, Image, KeyboardAvoidingView, Platform } from 'react-native';
 import { useState } from 'react';
 import { useRouter } from 'expo-router'; 
-import Button from '../componets/button'; 
-import Input from '../componets/input';
-import { styles } from './style';
+import Button from '../../componets/button-login'; 
+import Input from '../../componets/input';
+import { styles } from '@/../src/app/(auth)/style';
+import { useAuth } from '@/context/AuthContext';
 
 export default function Index() {
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
     
-    const router = useRouter(); 
+    const router = useRouter();
+    const { signIn } = useAuth();
 
     function handleLogin() {
-        if (email.toLowerCase() === 'ash' && senha === 'pikachu') {
-            router.push('/pokedex'); 
+        const isValid = signIn(email, senha);
+
+        if (isValid) {
+            router.replace('/pokedex');
         } else {
             Alert.alert('Ataque Falhou!', 'A Equipe Rocket sabotou seu acesso. Treinador ou senha incorretos.');
         }

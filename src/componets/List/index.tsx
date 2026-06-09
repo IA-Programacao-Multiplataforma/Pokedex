@@ -13,10 +13,15 @@ export default function PokemonList({ data }: PokemonListProps) {
         <FlatList
             data={data}
             keyExtractor={(item) => item.index.toString()}
-            renderItem={({ item }) => <PokemonCard pokemon={item} />}
+            numColumns={4}
+            columnWrapperStyle={styles.row}
+            renderItem={({ item }) => (
+                <View style={styles.cardWrapper}>
+                    <PokemonCard pokemon={item} />
+                </View>
+            )}
             contentContainerStyle={styles.listContent}
-            showsVerticalScrollIndicator={false}
-            ItemSeparatorComponent={() => <View style={{ height: 25 }} />} 
+            showsVerticalScrollIndicator={true}
         />
     );
 }

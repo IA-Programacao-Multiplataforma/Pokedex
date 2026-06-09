@@ -6,6 +6,8 @@ import PokemonList from '@/componets/List';
 import Header from '@/componets/header';
 import { evolvedIds } from '@/utils/evolutions'; 
 import { styles } from './pokedexStyles'; 
+import { useAuth } from '@/context/AuthContext';
+import route, { Redirect } from 'expo-router';
 
 export default function Pokedex() {
     const [loading, setLoading] = useState(true);

@@ -3,9 +3,9 @@ import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
     cardContainer: {
-        width: 340, 
-        minHeight: 480, 
-        alignSelf: 'center', 
+        width: '100%',
+        minHeight: 300,
+        alignSelf: 'stretch',
         borderRadius: 12,
         borderWidth: 12, 
         borderColor: '#FFE165', 
@@ -20,13 +20,17 @@ export const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'flex-start',
-        marginBottom: 12,
+        marginBottom: 8,
+        gap: 8,
     },
     pokemonName: {
-        fontSize: 24,
+        fontSize: 14,
         fontWeight: '900',
         color: '#111',
         textTransform: 'capitalize',
+        flexShrink: 1,
+        flexWrap: 'wrap',
+        maxWidth: '100%',
     },
     pokemonId: {
         fontSize: 12,
@@ -35,9 +39,11 @@ export const styles = StyleSheet.create({
     },
     headerRight: {
         alignItems: 'flex-end',
+        flexShrink: 1,
+        minWidth: 0,
     },
     hpText: {
-        fontSize: 20,
+        fontSize: 12,
         fontWeight: '900',
         color: '#D32F2F', 
         marginBottom: 6,
@@ -45,15 +51,17 @@ export const styles = StyleSheet.create({
     // Estilos dos botões modificados para suportar múltiplos botões lado a lado
     actionsContainer: {
         flexDirection: 'row',
-        gap: 6, // Cria um espaçamento pequeno entre os botões
+        flexWrap: 'wrap',
+        justifyContent: 'flex-end',
+        gap: 6,
     },
     actionButton: {
-        paddingHorizontal: 10,
-        paddingVertical: 6,
+        paddingHorizontal: 8,
+        paddingVertical: 5,
         borderRadius: 20,
         borderWidth: 2,
         borderColor: '#333',
-        minWidth: 75,
+        minWidth: 68,
         alignItems: 'center',
         justifyContent: 'center',
     },
@@ -79,7 +87,7 @@ export const styles = StyleSheet.create({
     imageFrame: {
         backgroundColor: '#F8F8F8',
         width: '100%',
-        height: 190,
+        height: 110,
         borderWidth: 4,
         borderColor: '#B0B0B0', 
         borderRadius: 2,
@@ -91,8 +99,8 @@ export const styles = StyleSheet.create({
         marginBottom: 12,
     },
     image: {
-        width: 170,
-        height: 170,
+        width: 80,
+        height: 80,
     },
     typesContainer: {
         flexDirection: 'row',
@@ -114,7 +122,7 @@ export const styles = StyleSheet.create({
     attacksContainer: {
         backgroundColor: 'rgba(255, 255, 255, 0.9)', 
         borderRadius: 8,
-        padding: 12,
+        padding: 8,
         borderWidth: 1,
         borderColor: 'rgba(0,0,0,0.1)',
     },
@@ -123,16 +131,16 @@ export const styles = StyleSheet.create({
         justifyContent: 'space-between',
         borderBottomWidth: 1,
         borderBottomColor: '#EEE',
-        paddingVertical: 10,
+        paddingVertical: 6,
     },
     attackName: {
-        fontSize: 16,
+        fontSize: 12,
         fontWeight: 'bold',
         textTransform: 'capitalize',
         color: '#222',
     },
     attackDamage: {
-        fontSize: 18,
+        fontSize: 14,
         fontWeight: '900',
         color: '#111',
     }

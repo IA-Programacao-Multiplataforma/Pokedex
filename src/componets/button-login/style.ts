@@ -16,7 +16,7 @@ export const styles = StyleSheet.create({
         elevation: 4,
     },
     title: {
-        color: '#3B4CCA', 
+        color: '#000000', 
         fontSize: 18,
         fontWeight: '900',
         textTransform: 'uppercase', 

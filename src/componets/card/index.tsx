@@ -3,9 +3,9 @@ import { View, Text, StyleSheet, Image, TouchableOpacity, ActivityIndicator } fr
 import { Pokemon } from '@/@types/pokemon';
 import { getPokemonById } from '@/integration/pokemonIntegration';
 import { kantoEvolutions } from '@/utils/evolutions'; 
-import { styles } from './style';
+import { styles } from '@/../src/componets/card/style';
 
-const typeColors: Record<string, string> = {
+export const typeColors: Record<string, string> = {
     fire: '#F08030', water: '#6890F0', grass: '#78C850', electric: '#F8D030',
     bug: '#A8B820', normal: '#A8A878', poison: '#A040A0', default: '#D3D3D3'
 };

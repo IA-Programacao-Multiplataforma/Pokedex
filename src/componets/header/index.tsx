@@ -1,13 +1,20 @@
 import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { useRouter } from 'expo-router';
+import { useAuth } from '../../context/AuthContext';
 import { styles } from './style';
 
 export default function Header() {
     const router = useRouter();
+    const { signOut } = useAuth();
 
-    const handleLogout = () => {
+    const handleLogout = async () => {
+        await signOut();
         router.replace('/');
+    };
+
+     const profile = () => {
+        router.replace('/profile');
     };
 
     return (
@@ -17,13 +24,16 @@ export default function Header() {
                 <Text style={styles.subtitle}>Cartas TCG</Text>
             </View>
             
+            <View style={{ flexDirection: 'row', gap: 10 }}>
+
             <TouchableOpacity 
-                style={styles.logoutButton} 
-                onPress={handleLogout}
+                style={styles.profileButton} 
+                onPress={profile}
                 activeOpacity={0.7}
             >
-                <Text style={styles.logoutText}>Sair</Text>
+                <Text style={styles.profileText}>Profile</Text>
             </TouchableOpacity>
+            </View>
         </View>
     );
 }

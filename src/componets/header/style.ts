@@ -38,5 +38,19 @@ export const styles = StyleSheet.create({
         fontWeight: 'bold',
         textTransform: 'uppercase',
         fontSize: 12,
+    }, 
+    profileButton: {
+        backgroundColor: '#81c9d4', 
+        paddingVertical: 8,
+        paddingHorizontal: 16,
+        borderRadius: 8,
+        borderWidth: 2,
+        borderColor: '#222224',
+    },
+    profileText: {
+        color: '#FFF',
+        fontWeight: 'bold',
+        textTransform: 'uppercase',
+        fontSize: 12,
     }
 });
