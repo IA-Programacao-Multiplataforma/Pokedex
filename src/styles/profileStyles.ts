@@ -84,11 +84,11 @@ export const styles = StyleSheet.create({
         fontWeight: '900',
         letterSpacing: 1.5,
         marginVertical: 15,
-        fontFamily: 'System', // Substitua pela sua fonte Cartoon/Impact se necessário
+        fontFamily: 'System', 
     },
     statsCard: {
         backgroundColor: '#1E1E1E',
-        borderColor: '#9b8239', // Borda sutil arroxeada/grafite vista na imagem
+        borderColor: '#9b8239', 
         borderWidth: 4,
         borderRadius: 35,
         width: '100%',

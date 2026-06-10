@@ -2,55 +2,59 @@ import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
     header: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        marginBottom: 15,
-        marginTop: 20, 
+        paddingHorizontal: 20,
+        backgroundColor: '#111112',
         borderBottomWidth: 1,
         borderBottomColor: '#444',
-        paddingBottom: 10,
-        paddingHorizontal: 20, 
+        paddingBottom: 12,
+        marginBottom: 18,
     },
     titleContainer: {
         flexDirection: 'column',
+        width: '100%',
     },
     title: {
-        fontSize: 28, 
-        color: '#FFCC00', 
+        fontSize: 30,
+        color: '#FFCC00',
+        fontWeight: 'bold',
+        marginBottom: 4,
     },
     subtitle: {
         fontSize: 14,
         color: '#FFF',
         fontWeight: '600',
-        letterSpacing: 2,
+        letterSpacing: 1.2,
+    },
+    buttonGroup: {
+        flexDirection: 'row',
+        gap: 10,
+        flexWrap: 'wrap',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 14,
+        width: '100%',
+    },
+    navButton: {
+        paddingVertical: 10,
+        paddingHorizontal: 14,
+        borderRadius: 14,
+        minWidth: 70,
+        alignItems: 'center',
+        backgroundColor: '#333',
+    },
+    activeButton: {
+        backgroundColor: '#FFCC00',
+    },
+    activeButtonText: {
+        color: '#111',
     },
     logoutButton: {
-        backgroundColor: '#E3350D', 
-        paddingVertical: 8,
-        paddingHorizontal: 16,
-        borderRadius: 8,
-        borderWidth: 2,
-        borderColor: '#222224',
+        backgroundColor: '#E3350D',
     },
-    logoutText: {
+    navText: {
+        fontSize: 12,
         color: '#FFF',
         fontWeight: 'bold',
         textTransform: 'uppercase',
-        fontSize: 12,
-    }, 
-    profileButton: {
-        backgroundColor: '#81c9d4', 
-        paddingVertical: 8,
-        paddingHorizontal: 16,
-        borderRadius: 8,
-        borderWidth: 2,
-        borderColor: '#222224',
-    },
-    profileText: {
-        color: '#FFF',
-        fontWeight: 'bold',
-        textTransform: 'uppercase',
-        fontSize: 12,
     }
 });

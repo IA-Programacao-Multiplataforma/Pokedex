@@ -1,6 +1,9 @@
 import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
+    list: {
+        width: '100%',
+    },
     listContent: {
         padding: 12,
         paddingBottom: 40,
@@ -11,8 +14,8 @@ export const styles = StyleSheet.create({
         marginBottom: 14,
     },
     cardWrapper: {
-        flexBasis: '23%',
-        maxWidth: '23%',
+        flexBasis: '48%',
+        maxWidth: '48%',
         alignItems: 'center',
     },
 });

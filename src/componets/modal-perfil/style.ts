@@ -1,15 +1,18 @@
 import { StyleSheet, Dimensions } from 'react-native';
 
-const { width, height } = Dimensions.get('window');
+const { height } = Dimensions.get('window');
 
 export const styles = StyleSheet.create({
     modalOverlay: {
         flex: 1,
         backgroundColor: 'rgba(0,0,0,0.5)',
         justifyContent: 'flex-end',
+        alignItems: 'center', // <-- Garante que o modal fique no meio da tela no PC
     },
     bottomSheet: {
-        height: height * 0.6,
+        height: height * 0.65, // Aumentei um pouquinho para dar espaço aos itens
+        width: '100%',
+        maxWidth: 500, // <-- O SEGREDO: No PC, ele não passa de 500px de largura
         backgroundColor: '#7A7A7A',
         borderTopLeftRadius: 35,
         borderTopRightRadius: 35,
@@ -46,14 +49,15 @@ export const styles = StyleSheet.create({
     grid: {
         flexDirection: 'row',
         flexWrap: 'wrap',
-        justifyContent: 'space-between',
-        width: width - 40,
+        justifyContent: 'center', // <-- Centraliza os itens em vez de jogar para as bordas
+        gap: 15, // <-- Adiciona um espaçamento uniforme entre os itens (funciona nativo no React Native moderno)
+        width: '100%',
     },
     gridItem: {
-        width: (width - 70) / 3,
-        height: (width - 70) / 3,
-        marginBottom: 15,
-        borderRadius: 100,
+        width: 100,  // <-- TAMANHO FIXO: Perfeito pro celular e não explode no PC
+        height: 100, // <-- TAMANHO FIXO
+        marginBottom: 10,
+        borderRadius: 50, // <-- Metade da largura/altura para ficar perfeitamente redondo
         backgroundColor: '#FFF',
         overflow: 'hidden',
         borderWidth: 3,
@@ -68,7 +72,7 @@ export const styles = StyleSheet.create({
         resizeMode: 'cover',
     },
     colorCircle: {
-        borderRadius: 100,
+        borderRadius: 50,
     },
     saveButton: {
         backgroundColor: '#4E4E4E',
@@ -77,6 +81,7 @@ export const styles = StyleSheet.create({
         borderRadius: 25,
         alignItems: 'center',
         marginBottom: 25,
+        marginTop: 10,
         borderWidth: 1,
         borderColor: '#666',
     },

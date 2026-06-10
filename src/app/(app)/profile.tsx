@@ -3,7 +3,7 @@ import { View, Text, Image, TouchableOpacity, StyleSheet, SafeAreaView } from 'r
 import { useRouter } from 'expo-router';
 import { useAuth } from '../../context/AuthContext';
 import CustomizationModal from '../../componets/modal-perfil/customization-modal';
-import {styles} from '../(app)/profile';
+import { styles } from '../../styles/profileStyles';
 import BackButton  from '../../componets/button-back/button-back';
 
 export default function Profile() {

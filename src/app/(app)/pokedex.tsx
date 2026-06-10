@@ -5,7 +5,7 @@ import { getPokemon } from '@/integration/pokemonIntegration';
 import PokemonList from '@/componets/List';
 import Header from '@/componets/header';
 import { evolvedIds } from '@/utils/evolutions'; 
-import { styles } from './pokedexStyles'; 
+import { styles } from '../../styles/pokedexStyles'; 
 import { useAuth } from '@/context/AuthContext';
 import route, { Redirect } from 'expo-router';
 

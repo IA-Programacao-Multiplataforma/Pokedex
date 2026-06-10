@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useRouter } from 'expo-router'; 
 import Button from '../../componets/button-login'; 
 import Input from '../../componets/input';
-import { styles } from '@/../src/app/(auth)/style';
+import { styles } from '@/styles/style';
 import { useAuth } from '@/context/AuthContext';
 
 export default function Index() {
@@ -17,7 +17,7 @@ export default function Index() {
         const isValid = signIn(email, senha);
 
         if (isValid) {
-            router.replace('/pokedex');
+            router.replace('/team');
         } else {
             Alert.alert('Ataque Falhou!', 'A Equipe Rocket sabotou seu acesso. Treinador ou senha incorretos.');
         }
