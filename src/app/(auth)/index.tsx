@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Alert, Image, KeyboardAvoidingView, Platform } from 'react-native';
+import { View, Text, Alert, Image, KeyboardAvoidingView, Platform, ActivityIndicator } from 'react-native';
 import { useState } from 'react';
 import { useRouter } from 'expo-router'; 
 import Button from '../../componets/button-login'; 
@@ -9,17 +9,30 @@ import { useAuth } from '@/context/AuthContext';
 export default function Index() {
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
+    const [isSubmitting, setIsSubmitting] = useState(false); 
     
     const router = useRouter();
     const { signIn } = useAuth();
 
-    function handleLogin() {
-        const isValid = signIn(email, senha);
+    async function handleLogin() {
+        if (!email.trim() || !senha.trim()) {
+            Alert.alert('Opa, Treinador!', 'Por favor, preencha o nome e a senha secreta.');
+            return;
+        }
 
-        if (isValid) {
-            router.replace('/team');
-        } else {
-            Alert.alert('Ataque Falhou!', 'A Equipe Rocket sabotou seu acesso. Treinador ou senha incorretos.');
+        setIsSubmitting(true); 
+        try {
+            const isValid = await signIn(email, senha);
+
+            if (isValid) {
+                router.replace('/team');
+            } else {
+                Alert.alert('Ataque Falhou!', 'A Equipe Rocket sabotou seu acesso. Treinador ou senha incorretos.');
+            }
+        } catch (error) {
+            Alert.alert('Erro de Conexão', 'Não foi possível contatar o Centro Pokémon. Verifique sua internet.');
+        } finally {
+            setIsSubmitting(false); 
         }
     }
 
@@ -49,6 +62,7 @@ export default function Index() {
                         title="Digite seu nome" 
                         value={email} 
                         onChangeText={setEmail} 
+                        editable={!isSubmitting}
                     />
                     
                     <Text style={styles.label}>Senha Secreta</Text>
@@ -57,11 +71,34 @@ export default function Index() {
                         secureTextEntry 
                         value={senha}
                         onChangeText={setSenha}
+                        editable={!isSubmitting}
+                        returnKeyType="done"
+                        onSubmitEditing={handleLogin}
                     />
                     
-                    <Button title="Entrar" onPress={handleLogin} />
+                    <Button 
+                        title={isSubmitting ? "Carregando..." : "Entrar"} 
+                        onPress={handleLogin} 
+                        disabled={isSubmitting} 
+                    />
+
+                    {/* --- BOTÃO PARA IR PARA O CADASTRO --- */}
+                    <Text 
+                        style={{
+                            textAlign: 'center', 
+                            marginTop: 20, 
+                            color: '#007AFF', 
+                            fontWeight: 'bold',
+                            textDecorationLine: 'underline'
+                        }}
+                        // Certifique-se de ajustar a rota caso sua tela de cadastro tenha outro nome (ex: '/register')
+                        onPress={() => router.push('/register')} 
+                    >
+                        Não tem uma conta? Cadastre-se aqui
+                    </Text>
+                    {/* ------------------------------------- */}
                 </View>
             </View>
         </KeyboardAvoidingView>
-    )
+    );
 }

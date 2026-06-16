@@ -10,7 +10,15 @@ export const typeColors: Record<string, string> = {
     bug: '#A8B820', normal: '#A8A878', poison: '#A040A0', default: '#D3D3D3'
 };
 
-export default function PokemonCard({ pokemon }: { pokemon: Pokemon }) {
+export default function PokemonCard({ 
+    pokemon, 
+    hideEvolve = false, 
+    isSilhouette = false 
+}: { 
+    pokemon: Pokemon, 
+    hideEvolve?: boolean,
+    isSilhouette?: boolean 
+}) {
     const [currentPokemon, setCurrentPokemon] = useState<Pokemon>(pokemon);
     const [isEvolving, setIsEvolving] = useState(false);
 
@@ -58,7 +66,7 @@ export default function PokemonCard({ pokemon }: { pokemon: Pokemon }) {
                     <Text style={styles.hpText}>HP {hpStat}</Text>
                     
                     <View style={styles.actionsContainer}>
-                        {canDevolve && (
+                        {(!hideEvolve && canDevolve) && (
                             <TouchableOpacity 
                                 style={[styles.actionButton, styles.devolveButton]} 
                                 onPress={handleDevolve}
@@ -67,7 +75,7 @@ export default function PokemonCard({ pokemon }: { pokemon: Pokemon }) {
                             </TouchableOpacity>
                         )}
 
-                        {canEvolve && (
+                        {(!hideEvolve && canEvolve) && (
                             <TouchableOpacity 
                                 style={[styles.actionButton, styles.evolveButton]} 
                                 onPress={handleEvolve}
@@ -86,7 +94,14 @@ export default function PokemonCard({ pokemon }: { pokemon: Pokemon }) {
 
             <View style={styles.imageFrame}>
                 {currentPokemon.imagem ? (
-                    <Image source={{ uri: currentPokemon.imagem }} style={styles.image} resizeMode="contain" />
+                    <Image 
+                        source={{ uri: currentPokemon.imagem }} 
+                        style={[
+                            styles.image, 
+                            isSilhouette ? { tintColor: '#000000', opacity: 0.8 } : null
+                        ]} 
+                        resizeMode="contain" 
+                    />
                 ) : (
                     <Text>Sem Imagem</Text>
                 )}

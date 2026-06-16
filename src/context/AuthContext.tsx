@@ -1,23 +1,18 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { loginRequest } from '../integration/authIntegration'; 
 
 type AuthContextData = {
     isAuthenticated: boolean;
     user: string | null;
     isLoading: boolean;
-    signIn: (username: string, password: string) => boolean;
+    signIn: (username: string, password: string) => Promise<boolean>; 
     signOut: () => void;
 };
 
-function validateLogin(name: string, password: string): boolean {
-  return (
-    name.trim().toLowerCase() === "ash" && password.trim() === "pikachu"
-  );
-}
-
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
-export const AuthProvider = ({ children }: { children: React.ReactNode })  => {
+export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [user, setUser] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(true);
@@ -34,21 +29,31 @@ export const AuthProvider = ({ children }: { children: React.ReactNode })  => {
         loadStorageData();
     }, []);
 
-    function signIn(username: string, password: string): boolean {
-        const valid = validateLogin(username, password);
-        if(!valid) return false;
+    async function signIn(username: string, password: string): Promise<boolean> {
+        try {
+            const data = await loginRequest({ username, password });
+            
+            const displayName = data.userId;
 
-        const displayName = username.trim();
-        setUser(displayName);
-        setIsAuthenticated(true);
-        AsyncStorage.setItem('@Auth:user', displayName);
-        return true;
+            setUser(displayName);
+            setIsAuthenticated(true);
+
+            await AsyncStorage.setItem('@Auth:user', displayName);
+
+            await AsyncStorage.setItem('@Auth:username', username);
+            return true;
+        } catch (error) {
+            console.error("Erro ao fazer login:", error);
+            return false;
+        }
     }
 
     async function signOut() {
         setUser(null);
         setIsAuthenticated(false);
         await AsyncStorage.removeItem('@Auth:user');
+        await AsyncStorage.removeItem('@Auth:token');
+        await AsyncStorage.removeItem('@Auth:username');
     }
 
     return (
