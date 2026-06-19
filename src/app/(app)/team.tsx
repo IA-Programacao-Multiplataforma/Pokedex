@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, ScrollView, ActivityIndicator, StyleSheet } from 'react-native';
+import { View, Text, ScrollView, ActivityIndicator } from 'react-native';
 import { Pokemon } from '@/@types/pokemon';
 import { getPokemon } from '@/integration/pokemonIntegration';
 import { getTeam } from '@/integration/teamIntegration'; 
@@ -7,7 +7,7 @@ import { useAuth } from '@/context/AuthContext';
 import PokemonCard from '@/componets/card';
 import PokemonList from '@/componets/List';
 import Header from '@/componets/header';
-import { evolvedIds } from '@/utils/evolutions';
+import { styles } from '@/styles/teamStyles';
 
 export default function TeamScreen() {
     const { user } = useAuth(); 
@@ -18,36 +18,47 @@ export default function TeamScreen() {
     useEffect(() => {
         async function loadTeamData() {
             try {
-                const allPokemon = await getPokemon(151);
+                // 1. Busca os 149 Pokémons da Pokédex local (com os IDs em formato "001", "099")
+                const allPokemon = await getPokemon(149);
                 
-                const baseForms = allPokemon.filter(p => !evolvedIds.includes(parseInt(p.index)));
+                // Extrai o ID do usuário de forma segura
+                const currentUserId = user && typeof user === 'object' 
+                    ? String((user as any).id || (user as any).uid) 
+                    : String(user || '');
 
                 let teamIds: string[] = [];
-                if (user) {
-                    teamIds = await getTeam(user);
+                if (currentUserId) {
+                    teamIds = await getTeam(currentUserId);
                 }
 
                 let finalTeam: Pokemon[] = [];
-                let finalOthers: Pokemon[] = [];
 
-                if (teamIds.length > 0) {
-                    finalTeam = baseForms.filter(p => teamIds.includes(p.index));
-                    finalOthers = baseForms.filter(p => !teamIds.includes(p.index));
-                } else {
-                    const shuffled = [...baseForms].sort(() => 0.5 - Math.random());
-                    finalTeam = shuffled.slice(0, 5);
-                    finalOthers = shuffled.slice(5);
+                // 2. Se a API retornou os IDs do time (formatos como "114", "99")
+                if (teamIds && teamIds.length > 0) {
+                    // Corrigimos o match convertendo ambos para Número Inteiro.
+                    // Assim, "099" vira 99 e "99" vira 99, dando o match perfeito!
+                    finalTeam = allPokemon.filter(pokemonLocal => 
+                        teamIds.some(idApi => parseInt(idApi, 10) === parseInt(pokemonLocal.index, 10))
+                    );
                 }
 
+                // 3. Caso de segurança: se a API falhar ou estiver vazia, sorteia 5 iniciais
+                if (finalTeam.length === 0) {
+                    const shuffled = [...allPokemon].sort(() => 0.5 - Math.random());
+                    finalTeam = shuffled.slice(0, 5);
+                }
+
+                // Como combinado, a lista de reservas ("Outros") inicia 100% vazia
                 setMyTeam(finalTeam);
-                setOthers(finalOthers);
+                setOthers([]);
 
             } catch (error) {
-                console.error("Erro ao carregar os dados da tela de time:", error);
+                console.error("Erro ao carregar os dados no Centro Pokémon:", error);
             } finally {
                 setLoading(false);
             }
         }
+
         loadTeamData();
     }, [user]);
 
@@ -64,7 +75,7 @@ export default function TeamScreen() {
         <View style={styles.container}>
             <Header />
 
-           <PokemonList 
+            <PokemonList 
                 data={others} 
                 isSilhouetteList={true}  
                 hideEvolve={true}       
@@ -81,20 +92,14 @@ export default function TeamScreen() {
                             </ScrollView>
                         </View>
                         <Text style={styles.sectionTitle}>OUTROS POKÉMONS DISPONÍVEIS</Text>
+                        {others.length === 0 && (
+                            <Text style={{ color: '#aaa', textAlign: 'center', marginVertical: 30, fontSize: 14 }}>
+                                Você ainda não possui Pokémons na reserva. Explore para capturar!
+                            </Text>
+                        )}
                     </View>
                 }
             />
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-    container: { flex: 1, backgroundColor: '#222224' },
-    centerContainer: { flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#222224' },
-    loadingText: { color: '#FFF', marginTop: 10, fontWeight: 'bold' },
-    teamSection: { paddingHorizontal: 15, marginBottom: 20 },
-    sectionTitle: { color: '#FFCC00', fontSize: 20, fontWeight: 'bold', marginBottom: 10, textTransform: 'uppercase' },
-    teamCard: { backgroundColor: '#333', borderRadius: 20, padding: 15, borderWidth: 3, borderColor: '#FFCC00', marginBottom: 20 },
-    teamScroll: { gap: 15 },
-    teamMemberWrapper: { width: 180 }
-});
