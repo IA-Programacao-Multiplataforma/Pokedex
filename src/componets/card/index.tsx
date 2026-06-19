@@ -12,12 +12,12 @@ export const typeColors: Record<string, string> = {
 
 export default function PokemonCard({ 
     pokemon, 
-    hideEvolve = false, 
-    isSilhouette = false 
+    hideEvolve = false,
+    onPress
 }: { 
     pokemon: Pokemon, 
     hideEvolve?: boolean,
-    isSilhouette?: boolean 
+    onPress?: () => void 
 }) {
     const [currentPokemon, setCurrentPokemon] = useState<Pokemon>(pokemon);
     const [isEvolving, setIsEvolving] = useState(false);
@@ -25,6 +25,7 @@ export default function PokemonCard({
     useEffect(() => {
         setCurrentPokemon(pokemon);
     }, [pokemon]);
+
 
     const mainType = currentPokemon.tipos[0]?.toLowerCase() || 'default';
     const backgroundColor = typeColors[mainType] || typeColors.default;
@@ -54,8 +55,8 @@ export default function PokemonCard({
         setCurrentPokemon(pokemon);
     };
 
-    return (
-        <View style={[styles.cardContainer, { backgroundColor }]}>
+   return (
+        <TouchableOpacity activeOpacity={onPress ? 0.8 : 1} onPress={onPress} style={[styles.cardContainer, { backgroundColor }]}>
             <View style={styles.header}>
                 <View>
                     <Text style={styles.pokemonName}>{currentPokemon.nome}</Text>
@@ -96,10 +97,7 @@ export default function PokemonCard({
                 {currentPokemon.imagem ? (
                     <Image 
                         source={{ uri: currentPokemon.imagem }} 
-                        style={[
-                            styles.image, 
-                            isSilhouette ? { tintColor: '#000000', opacity: 0.8 } : null
-                        ]} 
+                        style={styles.image} 
                         resizeMode="contain" 
                     />
                 ) : (
@@ -121,6 +119,6 @@ export default function PokemonCard({
                     </View>
                 ))}
             </View>
-        </View>
+        </TouchableOpacity>
     );
 }

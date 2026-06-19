@@ -91,7 +91,6 @@ export default function Index() {
                             fontWeight: 'bold',
                             textDecorationLine: 'underline'
                         }}
-                        // Certifique-se de ajustar a rota caso sua tela de cadastro tenha outro nome (ex: '/register')
                         onPress={() => router.push('/register')} 
                     >
                         Não tem uma conta? Cadastre-se aqui

@@ -1,0 +1,108 @@
+import { StyleSheet, Dimensions } from 'react-native';
+
+export const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#222224',
+    },
+    centerContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#222224',
+    },
+    loadingText: {
+        color: '#FFF',
+        marginTop: 10,
+        fontWeight: 'bold',
+    },
+    arena: {
+        padding: 16,
+        paddingBottom: 40,
+        gap: 20,
+    },
+    fighterWrapper: {
+        alignItems: 'center',
+        padding: 10,
+        borderRadius: 16,
+        backgroundColor: '#333',
+        borderWidth: 2,
+        borderColor: '#444',
+    },
+    winnerGlow: {
+        borderColor: '#FFCC00',
+        shadowColor: '#FFCC00',
+        shadowOffset: { width: 0, height: 0 },
+        shadowOpacity: 0.8,
+        shadowRadius: 15,
+        elevation: 10,
+    },
+    teamLabel: {
+        color: '#FFF',
+        fontSize: 16,
+        fontWeight: '900',
+        marginBottom: 10,
+        letterSpacing: 2,
+    },
+    vsPanel: {
+        alignItems: 'center',
+        backgroundColor: '#111',
+        padding: 20,
+        borderRadius: 16,
+        borderWidth: 2,
+        borderColor: '#E3350D',
+    },
+    vsText: {
+        color: '#E3350D',
+        fontSize: 32,
+        fontWeight: '900',
+        fontStyle: 'italic',
+    },
+    attributeBox: {
+        alignItems: 'center',
+        marginVertical: 10,
+        padding: 10,
+        backgroundColor: '#222',
+        borderRadius: 8,
+        width: '100%',
+    },
+    attributeLabel: {
+        color: '#AAA',
+        fontSize: 10,
+        fontWeight: 'bold',
+        letterSpacing: 1,
+    },
+    attributeValue: {
+        color: '#FFF',
+        fontSize: 18,
+        fontWeight: '900',
+        marginTop: 4,
+    },
+    messageText: {
+        color: '#FFF',
+        fontSize: 14,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        marginVertical: 15,
+    },
+    battleButton: {
+        backgroundColor: '#FFCC00',
+        paddingVertical: 12,
+        paddingHorizontal: 30,
+        borderRadius: 30,
+        borderWidth: 3,
+        borderColor: '#000',
+        width: '100%',
+        alignItems: 'center',
+    },
+    battleButtonDisabled: {
+        backgroundColor: '#665200',
+        borderColor: '#333',
+    },
+    battleButtonText: {
+        color: '#000',
+        fontSize: 16,
+        fontWeight: '900',
+        letterSpacing: 1,
+    },
+});

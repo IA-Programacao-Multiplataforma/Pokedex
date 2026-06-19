@@ -16,4 +16,21 @@ export const getUserStats = async (userId: string): Promise<UserStats> => {
         console.error("Erro ao buscar status do treinador:", error);
         return { vitorias: 0, derrotas: 0, level: 1 }; 
     }
+
+
+};
+
+export const updateUserStats = async (userId: string, currentStats: UserStats, result: 'win' | 'loss'): Promise<void> => {
+    try {
+        const newWins = result === 'win' ? Number(currentStats.vitorias || 0) + 1 : Number(currentStats.vitorias || 0);
+        const newLosses = result === 'loss' ? Number(currentStats.derrotas || 0) + 1 : Number(currentStats.derrotas || 0);
+        
+        await axios.put(`${API_URL}/stats/${userId}`, {
+            level: currentStats.level || "1",
+            vitorias: newWins.toString(),
+            derrotas: newLosses.toString()
+        });
+    } catch (error) {
+        console.error("Erro ao salvar o resultado da batalha:", error);
+    }
 };
