@@ -4,7 +4,6 @@ import { Pokemon } from '@/@types/pokemon';
 import PokemonCard from '@/componets/card'; 
 import { styles } from './style';
 
-// 👇 1. Adicionamos o onPokemonPress aqui na Interface
 interface PokemonListProps {
     data: Pokemon[];
     ListHeaderComponent?: React.ReactElement;
@@ -16,7 +15,7 @@ export default function PokemonList({
     data, 
     ListHeaderComponent, 
     hideEvolve = false,
-    onPokemonPress // 👇 2. Recebemos a função aqui
+    onPokemonPress
 }: PokemonListProps) {
     return (
         <FlatList
@@ -26,7 +25,6 @@ export default function PokemonList({
             columnWrapperStyle={styles.row}
             renderItem={({ item }) => (
                 <View style={styles.cardWrapper}>
-                    {/* 👇 3. REPASSAMOS A FUNÇÃO PARA O CARD AQUI 👇 */}
                     <PokemonCard 
                         pokemon={item} 
                         hideEvolve={hideEvolve} 

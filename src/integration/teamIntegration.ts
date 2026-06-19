@@ -2,7 +2,6 @@ import axios from 'axios';
 
 const API_URL = 'https://lnh1dhp1mj.execute-api.us-east-1.amazonaws.com/api-pokemon/pokemon/v1';
 
-// 🔥 O SEGREDO DO ERRO 400: Limpa os zeros à esquerda (ex: "001" vira "1")
 const cleanId = (id: string) => parseInt(id, 10).toString();
 
 export const getTeam = async (userId: string): Promise<string[]> => {
@@ -20,7 +19,6 @@ export const getTeam = async (userId: string): Promise<string[]> => {
     }
 };
 
-// 👇 NOVA FUNÇÃO: Busca os capturados direto da AWS (Para o computador ver!)
 export const getCapturedFromApi = async (userId: string): Promise<string[]> => {
     try {
         const response = await axios.get(`${API_URL}/captured`, {
@@ -35,7 +33,6 @@ export const getCapturedFromApi = async (userId: string): Promise<string[]> => {
         }
         return [];
     } catch (error) {
-        // Se a rota não existir, ignora e o App vai usar a memória do celular
         return [];
     }
 };
