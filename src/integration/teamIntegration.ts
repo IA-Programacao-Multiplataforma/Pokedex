@@ -42,8 +42,8 @@ export const updateTeam = async (userId: string, removedId: string, newId: strin
         await axios.put(`${API_URL}/team`, null, {
             params: { 
                 'user-id': userId,
-                'removed-pokemon': cleanId(removedId), 
-                'new-pokemon': cleanId(newId)          
+                'removed-pokemon': cleanId(removedId),
+                'new-pokemon': cleanId(newId)
             }
         });
         return true;
@@ -58,7 +58,7 @@ export const captureNewPokemon = async (userId: string, pokemonId: string): Prom
         await axios.put(`${API_URL}/captured`, null, {
             params: { 
                 'user-id': userId,
-                'pokemon-id': cleanId(pokemonId) 
+                'pokemon-id': cleanId(pokemonId)
             }
         });
         return true;
@@ -73,7 +73,7 @@ export const deleteCapturedPokemon = async (userId: string, pokemonId: string): 
         await axios.delete(`${API_URL}/captured`, {
             params: { 
                 'user-id': userId,
-                'pokemon-id': cleanId(pokemonId) 
+                'pokemon-id': cleanId(pokemonId)
             }
         });
         return true;

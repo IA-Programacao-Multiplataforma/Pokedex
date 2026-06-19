@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Platform, StatusBar } from 'react-native';
 
 export const styles = StyleSheet.create({
     header: {
@@ -6,6 +6,7 @@ export const styles = StyleSheet.create({
         backgroundColor: '#111112',
         borderBottomWidth: 1,
         borderBottomColor: '#2A2A2E',
+        paddingTop: Platform.OS === 'web' ? 20 : (StatusBar.currentHeight || 40) + 15,
         paddingBottom: 18,
         marginBottom: 18,
         shadowColor: '#000',
